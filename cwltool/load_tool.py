@@ -382,3 +382,12 @@ def resolve_overrides(ov,      # Type: CommentedMap
 def load_overrides(ov, base_url):  # type: (Text, Text) -> List[Dict[Text, Any]]
     ovloader = Loader(overrides_ctx)
     return resolve_overrides(ovloader.fetch(ov), ov, base_url)
+
+#FIX for nlppln issue
+#  File "/usr/local/lib/python3.5/dist-packages/scriptcwl/scriptcwl.py", line 30, in <module>
+#    from cwltool.load_tool import fetch_document, validate_document
+#  ImportError: cannot import name 'validate_document'
+
+def validate_document(document_loader, workflowobj, uri):
+    loadingContext, uri = resolve_and_validate_document(document_loader, workflowobj, uri)
+    return loadingContext.loader, loadingContext.avsc_names, workflowobj, loadingContext.metadata, uri
